@@ -10,8 +10,8 @@ export class AppComponent {
   title = 'crypto';
 
   constructor(coincap: CoincapService) {
-    // coincap.getTopCryptocurrencies().subscribe(resp => {
-    //   console.log(resp);
-    // });
+    coincap.getTopCryptocurrencies().subscribe(resp => {
+      console.log(resp);
+    });
   }
 }

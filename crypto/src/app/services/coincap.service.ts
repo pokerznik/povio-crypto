@@ -9,7 +9,13 @@ import { TopCryptocurrencyResponse } from '../models/top-cryptocurrency-response
   providedIn: 'root'
 })
 export class CoincapService {
-  private getCryptoCurrenciesUrl = "cryptocurrency/listings/latest";
+  private get proxyUrl() {
+    return `${this.localBaseUrl}/api`;
+  }
+
+  private get localBaseUrl() {
+    return `${window.location.origin}`;
+  }
 
   constructor (private client: HttpClient) { }
 
@@ -19,7 +25,7 @@ export class CoincapService {
 
   public getTopCryptocurrencies() : Observable<TopCryptocurrencyResponse> {
     return this.client
-      .get<TopCryptocurrencyResponse>(environment.coincapApiUrl + this.getCryptoCurrenciesUrl, {
+      .get<TopCryptocurrencyResponse>(this.proxyUrl, {
         headers: this.getHeader()
       });
   }
